@@ -18,11 +18,14 @@ def procesar_excel():
     new_df = df[['NOTA PEDIDO', 'NOMBRE DEL CLIENTE', 'CANT', 'PRODUCTOS']]
 
     # Buscar el precio unitario en ambas columnas (E e I)
-    precio_unitario = df['PRECIO UNIT'] if 'PRECIO UNIT' in df.columns else df['PRECIO UNIT ']
+    precio_unitario = df['PRECIO UNIT 1'] if 'PRECIO UNIT 1' in df.columns else df['PRECIO UNIT 2']
 
     # Añadir la columna de Precio Unit y Total
     new_df['PRECIO UNIT'] = precio_unitario.fillna(0.00)
     new_df['TOTAL'] = new_df['CANT'] * new_df['PRECIO UNIT']
+
+    print("Resultados:")
+    print(new_df[['NOTA PEDIDO', 'NOMBRE DEL CLIENTE', 'CANT', 'PRODUCTOS', 'PRECIO UNIT', 'TOTAL']])
 
     # Guardar el nuevo DataFrame en un nuevo archivo Excel
     new_file_path = filedialog.asksaveasfilename(defaultextension=".xlsx", filetypes=[("Excel files", "*.xlsx")])
