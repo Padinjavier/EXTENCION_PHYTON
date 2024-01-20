@@ -1,15 +1,11 @@
 import pandas as pd
-from tkinter import Tk, filedialog, Button, Label, simpledialog
+from tkinter import Tk, filedialog, Button, Label
 from fuzzywuzzy import process
 
 def obtener_mejor_coincidencia(nombre_producto, productos_excel):
     # Encuentra la mejor coincidencia en la lista de productos_excel
     mejor_coincidencia, _ = process.extractOne(nombre_producto, productos_excel)
     return mejor_coincidencia
-
-def buscar_producto_personalizado(nombre_producto):
-    respuesta = simpledialog.askstring("Buscar Producto", f"No se encontró coincidencia para '{nombre_producto}'.\nPor favor, ingresa el nombre completo del producto:")
-    return respuesta
 
 def procesar_excel():
     # Abrir el cuadro de diálogo para seleccionar el archivo Excel
@@ -33,23 +29,16 @@ def procesar_excel():
     # Crear un nuevo DataFrame con las columnas requeridas
     new_df = df[['NOTA PEDIDO', 'NOMBRE DEL CLIENTE', 'CANT', 'PRODUCTOS']]
 
+  # Añadir la columna de Producto Completo
+    new_df['PRODUCTO COMPLETO'] = df['PRODUCTOS'].apply(lambda x: obtener_mejor_coincidencia(str(x), productos_excel))
+    
     # Sumar las dos columnas de precio unitario y colocar el resultado en una nueva columna
     new_df['PRECIO UNIT'] = df['PRECIO UNIT 1'].fillna(0) + df['PRECIO UNIT 2'].fillna(0)
 
     # Añadir la columna de Total
     new_df['TOTAL'] = new_df['CANT'] * new_df['PRECIO UNIT']
 
-    # Añadir la columna de Producto Completo
-    new_df['PRODUCTO COMPLETO'] = df['PRODUCTOS'].apply(lambda x: obtener_mejor_coincidencia(str(x), productos_excel))
-
-    # Buscar coincidencias personalizadas y agregar a la columna de probabilidad
-    for i, row in new_df.iterrows():
-        producto_usuario = row['PRODUCTOS']
-        producto_completo = row['PRODUCTO COMPLETO']
-
-        if pd.isnull(producto_completo):
-            producto_completo_personalizado = buscar_producto_personalizado(producto_usuario)
-            new_df.at[i, 'PRODUCTO COMPLETO'] = producto_completo_personalizado
+  
 
     print("Resultados:")
     print(new_df[['NOTA PEDIDO', 'NOMBRE DEL CLIENTE', 'CANT', 'PRODUCTOS', 'PRODUCTO COMPLETO', 'PRECIO UNIT', 'TOTAL']])

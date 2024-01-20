@@ -29,14 +29,16 @@ def procesar_excel():
     # Crear un nuevo DataFrame con las columnas requeridas
     new_df = df[['NOTA PEDIDO', 'NOMBRE DEL CLIENTE', 'CANT', 'PRODUCTOS']]
 
+  # Añadir la columna de Producto Completo
+    new_df['PRODUCTO COMPLETO'] = df['PRODUCTOS'].apply(lambda x: obtener_mejor_coincidencia(str(x), productos_excel))
+    
     # Sumar las dos columnas de precio unitario y colocar el resultado en una nueva columna
     new_df['PRECIO UNIT'] = df['PRECIO UNIT 1'].fillna(0) + df['PRECIO UNIT 2'].fillna(0)
 
     # Añadir la columna de Total
     new_df['TOTAL'] = new_df['CANT'] * new_df['PRECIO UNIT']
 
-    # Añadir la columna de Producto Completo
-    new_df['PRODUCTO COMPLETO'] = df['PRODUCTOS'].apply(lambda x: obtener_mejor_coincidencia(str(x), productos_excel))
+  
 
     print("Resultados:")
     print(new_df[['NOTA PEDIDO', 'NOMBRE DEL CLIENTE', 'CANT', 'PRODUCTOS', 'PRODUCTO COMPLETO', 'PRECIO UNIT', 'TOTAL']])
