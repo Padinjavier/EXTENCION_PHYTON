@@ -1,7 +1,6 @@
 import tkinter as tk
 from tkinter import ttk, filedialog
 import pandas as pd
-import json
 import pyautogui
 import time
 
