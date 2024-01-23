@@ -7,8 +7,8 @@ import time
 
 def ejecutar_codigo(datos_para_insertar):
     # Coordenadas de la consola
-    x_clic_adicional_1 = 919
-    y_clic_adicional_1 = 263
+    x_clic_adicional_1 = 955
+    y_clic_adicional_1 = 290
 
     
     pyautogui.click(x_clic_adicional_1, y_clic_adicional_1, duration=1)
@@ -18,7 +18,7 @@ def ejecutar_codigo(datos_para_insertar):
     for datos in datos_para_insertar:
 
         if datos["IGV"] == 'no':
-                precio_unitario_ajustado = (datos["precio"])
+                precio_unitario_ajustado = datos["precio"]
         else:
                 precio_unitario_ajustado = round(datos["precio"] / 1.18, 10)
         
@@ -84,7 +84,8 @@ def actualizar_tabla(tabla, datos):
 
     # Llena la tabla con los nuevos datos del DataFrame
     for fila in datos.itertuples(index=False):
-        tabla.insert("", "end", values=tuple(fila))
+        valores_fila = tuple(fila) + (fila.precio / 1.18, fila.precio * fila.unidad)
+        tabla.insert("", "end", values=valores_fila)
 
 def iniciar_boleteo(tabla, ventana_resultado):
     # Obtén los datos actuales de la tabla
@@ -144,8 +145,6 @@ def seleccionar_archivo_excel(tabla):
 
 
 
-
-
     # Etiqueta y entrada para mostrar el nombre del archivo
     label_archivo = tk.Label(ventana_seleccion, text="Archivo Excel:")
     label_archivo.grid(row=0, column=0, padx=10, pady=10)
@@ -159,7 +158,7 @@ def seleccionar_archivo_excel(tabla):
 
     # Crear una tabla para mostrar los datos
     tabla = ttk.Treeview(ventana_seleccion)
-    tabla["columns"] = ("Unidades", "Nombres", "Precios", "IGV")
+    tabla["columns"] = ("Unidades", "Nombres", "Precios", "IGV" ,"PRE IGV", "aaa")
     tabla["show"] = "headings"
 
     # Configurar las columnas
