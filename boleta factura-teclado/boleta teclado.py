@@ -16,8 +16,9 @@ def ejecutar_codigo(datos_para_insertar):
     pyautogui.press('tab')
     for datos in datos_para_insertar:
 
-        if datos["IGV"] == 'no':
-                precio_unitario_ajustado = datos["precio"]
+        if datos["IGV"].lower() == 'no' or datos["IGV"].upper() == 'NO':
+                precio_unitario_ajustado = round(datos["precio"])
+                print (precio_unitario_ajustado)
         else:
                 precio_unitario_ajustado = round(datos["precio"] / 1.18, 10)
         
@@ -44,7 +45,7 @@ def ejecutar_codigo(datos_para_insertar):
         pyautogui.press('tab')
         pyautogui.press('tab')
 
-        if datos["IGV"] == 'no':
+        if datos["IGV"].lower() == 'no' or datos["IGV"].upper() == 'NO':
                 pyautogui.press('right')
         
         pyautogui.press('tab')
