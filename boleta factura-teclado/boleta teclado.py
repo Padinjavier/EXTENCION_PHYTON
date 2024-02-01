@@ -130,7 +130,8 @@ def seleccionar_archivo_excel(tabla):
         label_listo = tk.Label(ventana_resultado, text="Listo")
         label_listo.pack(pady=10)
 
-        boton_cerrar = tk.Button(ventana_resultado, text="Cerrar", command=lambda: cerrar_ventana(ventana_resultado))
+        # boton_cerrar = tk.Button(ventana_resultado, text="Cerrar", command=lambda: cerrar_ventana(ventana_resultado))
+        boton_cerrar = tk.Button(ventana_resultado, text="Cerrar", command=lambda: seleccionar_archivo_excel(tabla_inicial))
         boton_cerrar.pack(pady=10)
 
         # Oculta la ventana principal durante la ejecución
