@@ -6,8 +6,8 @@ import time
 
 def ejecutar_codigo(datos_para_insertar):
     # Coordenadas de la consola
-    x_clic_adicional_1 = 955
-    y_clic_adicional_1 = 290
+    x_clic_adicional_1 = 938
+    y_clic_adicional_1 = 295
 
     
     pyautogui.click(x_clic_adicional_1, y_clic_adicional_1, duration=1)
