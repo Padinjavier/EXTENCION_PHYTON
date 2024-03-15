@@ -24,7 +24,7 @@ def ejecutar_codigo(datos_para_insertar):
         
         # Presiona la tecla Tab
         pyautogui.press('enter')
-        time.sleep(2)
+        time.sleep(3)
 
         pyautogui.press('right')
         # pyautogui.click(x_clic_adicional_2, y_clic_adicional_2, duration=1)
@@ -66,7 +66,7 @@ def ejecutar_codigo(datos_para_insertar):
         pyautogui.press('tab')
         pyautogui.press('enter')
 
-        time.sleep(2)
+        time.sleep(3)
 
 def leer_excel(nombre_archivo):
     try:
